@@ -1,9 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package br.edu.ifsul.cc.lpoo.cv.model;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,38 +14,36 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-/**
- *
- * @author 20211pf.cc0009
- */
+
 @Entity
 @Table(name = "tb_produto")
-public class Produto {
+public class Produto implements Serializable {
+    
     @Id
     @SequenceGenerator(name = "seq_produto", sequenceName = "seq_produto_id", allocationSize = 1)
-    @GeneratedValue(generator = "seq_produto", strategy = GenerationType.SEQUENCE) 
+    @GeneratedValue(generator = "seq_produto", strategy = GenerationType.SEQUENCE)      
     private Integer id;
     
-    @Column(nullable = true, length = 200)
+    @Column(nullable = true, length = 100)
     private String nome;
     
-    @Column(nullable = true, length = 200)
+    @Column(nullable = false)
     private Float valor;
-    
-    @Column(nullable = true, length = 200)
-    private Float quant;
-   
-     @ManyToOne
-    @JoinColumn(name = "fornecedor_cnpj", nullable = false)
+        
+    @Column(nullable = false)
+    private Float quantidade;
+        
+    @ManyToOne
+    @JoinColumn(name = "fornecedor_cpf", nullable = false)
     private Fornecedor fornecedor;
-     
+        
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private TipoProduto tipopdt;
+    private TipoProduto tipo;
     
-     public Produto(){
-     
-     }
+    public Produto(){
+        
+    }
 
     /**
      * @return the id
@@ -92,17 +88,17 @@ public class Produto {
     }
 
     /**
-     * @return the quant
+     * @return the quantidade
      */
-    public Float getQuant() {
-        return quant;
+    public Float getQuantidade() {
+        return quantidade;
     }
 
     /**
-     * @param quant the quant to set
+     * @param quantidade the quantidade to set
      */
-    public void setQuant(Float quant) {
-        this.quant = quant;
+    public void setQuantidade(Float quantidade) {
+        this.quantidade = quantidade;
     }
 
     /**
@@ -120,18 +116,19 @@ public class Produto {
     }
 
     /**
-     * @return the tipopdt
+     * @return the tipo
      */
-    public TipoProduto getTipopdt() {
-        return tipopdt;
+    public TipoProduto getTipo() {
+        return tipo;
     }
 
     /**
-     * @param tipopdt the tipopdt to set
+     * @param tipo the tipo to set
      */
-    public void setTipopdt(TipoProduto tipopdt) {
-        this.tipopdt = tipopdt;
+    public void setTipo(TipoProduto tipo) {
+        this.tipo = tipo;
     }
-            
+    
+    
     
 }

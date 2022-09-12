@@ -1,32 +1,71 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
- */
+
 package br.edu.ifsul.cc.lpoo.cv.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-/**
- *
- * @author 20211pf.cc0009
- */
-public class Venda {
+@Entity
+@Table(name = "tb_venda")
+public class Venda implements Serializable {
     
-    
+    @Id
+    @SequenceGenerator(name = "seq_venda", sequenceName = "seq_venda_id", allocationSize = 1)
+    @GeneratedValue(generator = "seq_venda", strategy = GenerationType.SEQUENCE)      
     private Integer id;
-    private String obs;
-    private Float valot_total;
-    private Calendar data;
-    private Pagamento pgto;
-    private Cliente cliente;
-    private Funcionario func;
-    private List<Consulta> consulta;
-    private List<Produto> produto;
     
-     public Venda(){
-         
-     }
+    @Column(nullable = false, length = 200)
+    private String observacao;
+    
+    @Column(nullable = false)
+    private Float valor_total;
+    
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar data;
+    
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Pagamento formaPagamento;
+    
+    @ManyToOne
+    @JoinColumn(name = "cliente_cpf", nullable = false)
+    private Cliente cliente;
+    
+    @ManyToOne
+    @JoinColumn(name = "funcionario_cpf", nullable = false)
+    private Funcionario funcionario;
+    
+    @ManyToMany
+    @JoinTable(name = "tb_venda_consulta", joinColumns = {@JoinColumn(name = "venda_id")}, //agregacao, vai gerar uma tabela associativa.
+                                       inverseJoinColumns = {@JoinColumn(name = "consulta_id")})   
+    private List<Consulta> consultas;
+    
+    
+    @ManyToMany
+    @JoinTable(name = "tb_venda_produto", joinColumns = {@JoinColumn(name = "venda_id")}, //agregacao, vai gerar uma tabela associativa.
+                                       inverseJoinColumns = {@JoinColumn(name = "produto_id")})       
+    private List<Produto> produtos;
+
+    
+    public Venda(){
+        
+    }
 
     /**
      * @return the id
@@ -43,31 +82,31 @@ public class Venda {
     }
 
     /**
-     * @return the obs
+     * @return the observacao
      */
-    public String getObs() {
-        return obs;
+    public String getObservacao() {
+        return observacao;
     }
 
     /**
-     * @param obs the obs to set
+     * @param observacao the observacao to set
      */
-    public void setObs(String obs) {
-        this.obs = obs;
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 
     /**
-     * @return the valot_total
+     * @return the valor_total
      */
-    public Float getValot_total() {
-        return valot_total;
+    public Float getValor_total() {
+        return valor_total;
     }
 
     /**
-     * @param valot_total the valot_total to set
+     * @param valor_total the valor_total to set
      */
-    public void setValot_total(Float valot_total) {
-        this.valot_total = valot_total;
+    public void setValor_total(Float valor_total) {
+        this.valor_total = valor_total;
     }
 
     /**
@@ -85,45 +124,17 @@ public class Venda {
     }
 
     /**
-     * @return the pgto
+     * @return the formaPagamento
      */
-    public Pagamento getPgto() {
-        return pgto;
+    public Pagamento getFormaPagamento() {
+        return formaPagamento;
     }
 
     /**
-     * @param pgto the pgto to set
+     * @param formaPagamento the formaPagamento to set
      */
-    public void setPgto(Pagamento pgto) {
-        this.pgto = pgto;
-    }
-
-    /**
-     * @return the consulta
-     */
-    public List<Consulta> getConsulta() {
-        return consulta;
-    }
-
-    /**
-     * @param consulta the consulta to set
-     */
-    public void setConsulta(List<Consulta> consulta) {
-        this.consulta = consulta;
-    }
-
-    /**
-     * @return the produto
-     */
-    public List<Produto> getProduto() {
-        return produto;
-    }
-
-    /**
-     * @param produto the produto to set
-     */
-    public void setProduto(List<Produto> produto) {
-        this.produto = produto;
+    public void setFormaPagamento(Pagamento formaPagamento) {
+        this.formaPagamento = formaPagamento;
     }
 
     /**
@@ -141,19 +152,47 @@ public class Venda {
     }
 
     /**
-     * @return the func
+     * @return the funcionario
      */
-    public Funcionario getFunc() {
-        return func;
+    public Funcionario getFuncionario() {
+        return funcionario;
     }
 
     /**
-     * @param func the func to set
+     * @param funcionario the funcionario to set
      */
-    public void setFunc(Funcionario func) {
-        this.func = func;
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
     }
-     
-     
+
+    /**
+     * @return the consultas
+     */
+    public List<Consulta> getConsultas() {
+        return consultas;
+    }
+
+    /**
+     * @param consultas the consultas to set
+     */
+    public void setConsultas(List<Consulta> consultas) {
+        this.consultas = consultas;
+    }
+
+    /**
+     * @return the produtos
+     */
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    /**
+     * @param produtos the produtos to set
+     */
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+    
+    
     
 }

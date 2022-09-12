@@ -1,3 +1,4 @@
+
 package br.edu.ifsul.cc.lpoo.cv.model;
 
 import java.io.Serializable;
@@ -16,10 +17,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- *
- * @author telmo
- */
 
 @Entity
 @Table(name = "tb_consulta")
@@ -32,7 +29,7 @@ public class Consulta implements Serializable {
     
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Calendar datas;
+    private Calendar data;
         
     @Column(nullable = true, length = 200)
     private String observacao;
@@ -52,7 +49,7 @@ public class Consulta implements Serializable {
     @JoinColumn(name = "medico_cpf", nullable = false)
     private Medico medico;
     
-    @OneToMany(mappedBy = "receita_id")//mappedBy deve apontar para a referencia de cliente dentro de Pet.
+    @OneToMany(mappedBy = "consulta")//mappedBy deve apontar para a referencia de cliente dentro de Pet.
     private List<Receita> receitas;
     
     public Consulta(){
@@ -77,14 +74,14 @@ public class Consulta implements Serializable {
      * @return the data
      */
     public Calendar getData() {
-        return datas;
+        return data;
     }
 
     /**
      * @param data the data to set
      */
     public void setData(Calendar data) {
-        this.datas = data;
+        this.data = data;
     }
 
     /**

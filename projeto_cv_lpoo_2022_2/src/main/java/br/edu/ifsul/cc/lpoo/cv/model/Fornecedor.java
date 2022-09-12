@@ -1,33 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.edu.ifsul.cc.lpoo.cv.model;
 
-import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-/**
- *
- * @author 20211pf.cc0009
- */
+
 @Entity
 @Table(name = "tb_fornecedor")
 @DiscriminatorValue("F")
-public class Fornecedor extends Pessoa{
+public class Fornecedor extends Pessoa {
     
-    @Id
+    @Column(nullable = false, length = 11)
     private String cnpj;
+    
+    @Column(nullable = false, length = 11)
     private String ie;
     
     
-     public Fornecedor(){
-     
-     }
+    public Fornecedor(){
+        
+        this.setTipo("F");
+    }
 
     /**
      * @return the cnpj
@@ -56,5 +50,7 @@ public class Fornecedor extends Pessoa{
     public void setIe(String ie) {
         this.ie = ie;
     }
+    
+    
     
 }

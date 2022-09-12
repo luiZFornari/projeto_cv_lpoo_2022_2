@@ -1,62 +1,65 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package br.edu.ifsul.cc.lpoo.cv.model;
 
-/**
- *
- * @author 20211pf.cc0009
- */
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
+
+
+
+@Entity
+@Table(name = "tb_funcionario")
+@DiscriminatorValue("U")
 public class Funcionario extends Pessoa{
-    private String ctps;
-    private String pts;
+    
+    
+    @Column(nullable = false, length = 10)
+    private String numero_ctps;
+    
+    @Column(nullable = false, length = 10)
+    private String numero_pis;
+    
+    
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Cargo cargo;
     
-     public Funcionario(){
-     
-     }
-
-    /**
-     * @return the ctps
-     */
-    public String getCtps() {
-        return ctps;
+    
+    public Funcionario(){
+        
     }
 
     /**
-     * @param ctps the ctps to set
+     * @return the numero_ctps
      */
-    public void setCtps(String ctps) {
-        this.ctps = ctps;
+    public String getNumero_ctps() {
+        return numero_ctps;
     }
 
     /**
-     * @return the pts
+     * @param numero_ctps the numero_ctps to set
      */
-    public String getPts() {
-        return pts;
+    public void setNumero_ctps(String numero_ctps) {
+        this.numero_ctps = numero_ctps;
     }
 
     /**
-     * @param pts the pts to set
+     * @return the numero_pis
      */
-    public void setPts(String pts) {
-        this.pts = pts;
+    public String getNumero_pis() {
+        return numero_pis;
     }
 
     /**
-     * @return the cargo
+     * @param numero_pis the numero_pis to set
      */
-    public Cargo getCargo() {
-        return cargo;
+    public void setNumero_pis(String numero_pis) {
+        this.numero_pis = numero_pis;
     }
-
-    /**
-     * @param cargo the cargo to set
-     */
-    public void setCargo(Cargo cargo) {
-        this.cargo = cargo;
-    }
+    
+    
     
 }

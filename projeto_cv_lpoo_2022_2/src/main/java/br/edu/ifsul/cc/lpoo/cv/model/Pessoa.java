@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package br.edu.ifsul.cc.lpoo.cv.model;
 
 import java.io.Serializable;
@@ -17,15 +14,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-/**
- *
- * @author 20211pf.cc0009
- */
+
 @Entity
-@Table(name="tb_pessoa")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "tb_pessoa")
+@Inheritance(strategy = InheritanceType.JOINED)//alterar a estratégia.
 @DiscriminatorColumn(name = "tipo")
 public abstract class Pessoa implements Serializable {
+    
     @Id
     private String cpf;
     
@@ -64,9 +59,10 @@ public abstract class Pessoa implements Serializable {
     @Transient
     private String tipo;    
     
-     public Pessoa(){
-     
-     }
+    
+    public Pessoa(){
+        
+    }
 
     /**
      * @return the cpf
@@ -153,6 +149,20 @@ public abstract class Pessoa implements Serializable {
     }
 
     /**
+     * @return the data_cadastro
+     */
+    public Calendar getData_cadastro() {
+        return data_cadastro;
+    }
+
+    /**
+     * @param data_cadastro the data_cadastro to set
+     */
+    public void setData_cadastro(Calendar data_cadastro) {
+        this.data_cadastro = data_cadastro;
+    }
+
+    /**
      * @return the data_nascimento
      */
     public Calendar getData_nascimento() {
@@ -207,6 +217,19 @@ public abstract class Pessoa implements Serializable {
     public void setComplemento(String complemento) {
         this.complemento = complemento;
     }
-    
+
+    /**
+     * @return the tipo
+     */
+    public String getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
     
 }

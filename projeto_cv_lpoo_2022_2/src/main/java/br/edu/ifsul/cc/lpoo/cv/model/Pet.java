@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package br.edu.ifsul.cc.lpoo.cv.model;
 
 import java.io.Serializable;
@@ -18,42 +15,38 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- *
- * @author 20211pf.cc0009
- */
+
 @Entity
 @Table(name = "tb_pet")
-public class Pet implements Serializable{
+public class Pet implements Serializable {
     
     @Id
     @SequenceGenerator(name = "seq_pet", sequenceName = "seq_pet_id", allocationSize = 1)
-    @GeneratedValue(generator = "seq_pet", strategy = GenerationType.SEQUENCE) 
+    @GeneratedValue(generator = "seq_pet", strategy = GenerationType.SEQUENCE)   
     private Integer id;
     
-    @Column(nullable = true, length = 200)
+    @Column(nullable = false, length = 100)
     private String nome;
-     
+    
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar data_nascimento;
     
-     @Column(nullable = true, length = 200)
-    private String Obs;
-   
+    @Column(nullable = false, length = 200)
+    private String observacao;
+    
     @ManyToOne
-    @JoinColumn(name = "funcionario_cpf", nullable = false)
+    @JoinColumn(name = "raca_id", nullable = false)
     private Raca raca;
-      
+        
     @ManyToOne
     @JoinColumn(name = "cliente_cpf", nullable = false)
-    private Cliente cliente;
+    private Cliente cliente;    
     
     
-    
-     public Pet(){
-     
-     }
+    public Pet(){
+        
+    }
 
     /**
      * @return the id
@@ -98,17 +91,17 @@ public class Pet implements Serializable{
     }
 
     /**
-     * @return the Obs
+     * @return the observacao
      */
-    public String getObs() {
-        return Obs;
+    public String getObservacao() {
+        return observacao;
     }
 
     /**
-     * @param Obs the Obs to set
+     * @param observacao the observacao to set
      */
-    public void setObs(String Obs) {
-        this.Obs = Obs;
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 
     /**
@@ -124,19 +117,7 @@ public class Pet implements Serializable{
     public void setRaca(Raca raca) {
         this.raca = raca;
     }
-
-    /**
-     * @return the func
-     */
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    /**
-     * @param func the func to set
-     */
-    public void setFunc(Cliente clientes) {
-        this.cliente = clientes;
-    }
+    
+    
     
 }

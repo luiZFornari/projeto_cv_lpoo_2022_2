@@ -1,7 +1,6 @@
 
 package br.edu.ifsul.cc.lpoo.cv.model;
 
-import br.edu.ifsul.cc.lpoo.cv.model.Cliente;
 import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.Column;
@@ -18,10 +17,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- *
- * @author telmo
- */
 
 @Entity
 @Table(name = "tb_agenda")
@@ -60,9 +55,10 @@ public class Agenda implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status status;
     
+    
     @ManyToOne
-    @JoinColumn(name = "clientes_pessoa_cpf", nullable = false)
-    private Cliente clientes;
+    @JoinColumn(name = "cliente_pessoa_cpf", nullable = false)
+    private Cliente cliente;
         
     
     public Agenda(){
@@ -180,16 +176,20 @@ public class Agenda implements Serializable {
     public void setStatus(Status status) {
         this.status = status;
     }
-    
+
+    /**
+     * @return the cliente
+     */
     public Cliente getCliente() {
-        return clientes;
+        return cliente;
     }
 
-    
+    /**
+     * @param cliente the cliente to set
+     */
     public void setCliente(Cliente cliente) {
-        this.clientes = cliente;
+        this.cliente = cliente;
     }
-    
     
     
     
